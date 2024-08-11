@@ -7,7 +7,7 @@
       }
     ],
   
-    "routes": [
+    "rewrites": [
       { "source": "/(.*)",
        "destination": "/" 
       }
