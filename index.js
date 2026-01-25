@@ -108,9 +108,19 @@ app.get('/fetch-recipes', async (req, res) => {
       console.log('Recipes saved to DB:', recipes);
       res.json(recipes);
   } catch (error) {
-      console.error('Error fetching recipes:', error.response ? error.response.data : error.message);
-      res.status(500).json({ error: 'Error fetching recipes' });
-  }
+// FULL detailed logs for Vercel console
+console.error("========== RECIPE FETCH ERROR ==========");
+console.error("Message:", error.message);
+console.error("Status:", error.response?.status);
+console.error("Data:", error.response?.data);
+console.error("=======================================");
+
+
+// send real error to frontend (not generic 500)
+res.status(error.response?.status || 500).json({
+error: error.response?.data || error.message
+});
+}
 });
 
 
